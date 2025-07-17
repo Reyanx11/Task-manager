@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href ="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="thumbnail">
+
+    </div>
+
+   <!--Task Form-->
+    <form action="/add" method="post">
+        <input type="text" name="title" placeholder="Enter your task" required>
+        <button type="submit">Add task</button>
+    </form>
+
+    <!-- Task List -->
+   <ul class="task-list">
+
+    {% for task in tasks %}   <!-- Loop for tasks passed from Flask -->
+
+    <li class="task {%if task.completed%}completed{% endif %}">  <!-- Apply 'completed'-->
+
+        <!-- Display task title -->
+        <span>{{task.title}}</span>
+
+        <!-- Toggle completion status-->
+        <form  action="/toggle/{{task.id}}" method="post" style="display: inline;">
+            <button class="min-buttons" type="submit">✓</button>
+        </form>
+        <!-- Delete task -->
+        <form action="/delete/{{task.id}}" method="post" style="display: inline;">
+            <button class="min-buttons" type="submit">🗑</button>
+        </form>
+    </li>
+    {% else %}
+        <p>No tasks entered</p>
+    {% endfor %}
+   </ul>
+    
+</body>
+</html>
