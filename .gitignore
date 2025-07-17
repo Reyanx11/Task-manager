@@ -1,3 +1,5 @@
 .env
 venv/
 tasks.json
+
+__pycache__/
